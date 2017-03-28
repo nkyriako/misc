@@ -1,0 +1,52 @@
+import matplotlib.pyplot as plt
+import timeit
+from hw2 import insertionsort, selectionsort, mergesort
+import numpy as np
+isort=[]
+iunsort=[]
+##Insertion Sort
+for n in range(10**2):
+	s=np.array([x+1 for x in range(n)])
+	u=np.array([n-x for x in range(n)])
+	start=timeit.default_timer()
+	insertionsort(s)
+	stop=timeit.default_timer()
+	isort.append(stop-start)
+	start=timeit.default_timer()
+	insertionsort(u)
+	stop=timeit.default_timer()
+	iunsort.append(stop-start)
+##selectionsort
+ssort=[]
+sunsort=[]
+for n in range(10**2):
+	s=np.array([x+1 for x in range(n)])
+	u=np.array([n-x for x in range(n)])
+	start=timeit.default_timer()
+	selectionsort(s)
+	stop=timeit.default_timer()
+	ssort.append(stop-start)
+	start=timeit.default_timer()
+	selectionsort(u)
+	stop=timeit.default_timer()
+	sunsort.append(stop-start)
+#mergesort (not working...)
+
+msort=[]
+munsort=[]
+for n in range(10**2):
+	s=np.array([x+1 for x in range(n)])
+	u=np.array([n-x for x in range(n)])
+	start=timeit.default_timer()
+	mergesort(s)
+	stop=timeit.default_timer()
+	msort.append(stop-start)
+	start=timeit.default_timer()
+	mergesort(u)
+	stop=timeit.default_timer()
+	munsort.append(stop-start)
+
+plt.plot(sunsort)
+plt.ylabel('Runtime')
+plt.xlabel('length')
+plt.show()

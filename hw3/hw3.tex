@@ -1,0 +1,174 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\begin{document}
+\begin{center}
+CMPS101 HW 3
+
+\end{center}
+Nicole Kyriakopoulos \\
+Jacob Katzeff \\
+Due 4/27/16 \\
+\\
+\\
+Q1. \\
+a.  T(n) $\leq 7T(\dfrac{n}{3}) + n^{2}$ \\
+	Let a=7, b=3, f(n)= $n^{2}$ \\
+	 Using a case from the Master Theorem: \\
+	 If f(n) = $\Omega(n^{log_{b}a + \varepsilon}), \varepsilon>0$ \\
+	 and if a$f(\dfrac{n}{b})\leq cf(n) $ where $c<1$ then T(n) = $\Theta(f(n))$ \\
+	 $n^{2} = \Omega (n^{log_{3}7 + \varepsilon} ) $ is true when  $\varepsilon \geq 2 - log_{3}7$ so the first requirement for the case is fulfilled.\\
+	 $ 7(\dfrac{n}{3})^{2}\leq cn^{2}$ \\
+	 $\dfrac{7}{9}n^{2} \leq cn^{2}$ --second requirement is fulfilled when $\dfrac{7}{9} \leq c < 1$ \\
+	 So $T(n) \in \Theta(f(n))$\\
+\\	 
+\\ 
+b. T(n) $\leq 7T(\dfrac{n}{3})$ + n \\
+	a=7, b=3, f(n)= n \\
+	Use Case 1: f(n) = O($n^{log_{b}a - \varepsilon}$) where $\varepsilon >$0. If there is a value for that epsilon, then T(n)=$\Theta(n^{log_{b}a})$. \\
+	n = O$(n^{log_{3}7 - \varepsilon})$  -- true if $0< \varepsilon \leq log_{3}7$ - 1 \\
+	Therefore T(n) = $\Theta(n^{log_{3}7})$
+	\\
+	\\
+c. T(n) $\leq 7T(\dfrac{n}{3})$ + 1\\
+	Use Case 1: \\
+	1 = O$(n^{log_{3}7 - \varepsilon})$  -- true if $0< \varepsilon \leq log_{3}7$ \\
+	Therefore T(n) = $\Theta(n^{log_{3}7})$ \\
+	
+These prove $\Theta$ bounds but not specifically O time complexity; However, $\Theta$ implies both O and $\Omega$ so they can be used as that. \\
+\\
+Q2.\\
+Let T(n)$\leq n- \sqrt{n}-\sqrt{2n}+2 \in O (n)$. \\
+T(1)=1, so the base case is true. Assume true for k=1,...,n-1.\\
+In particular, it's true for n/2. \\
+So we get $T(n)\leq 2(\frac{n}{2}-\sqrt{\frac{n}{2}}-\sqrt{n}+2)+\sqrt{n}$\\
+$=n-\sqrt{2n}-2\sqrt{n}+4+\sqrt{n}$\\
+$=n-\sqrt{2n}-sqrt{n}+4$\\
+Thus, we get $T(n)\leq n-\sqrt{2n}-sqrt{n}+4$, which is true.
+Thus it is true for all n, and $T(n)\in O (n)$ \\
+Q3.\\
+Adding a counter to the recursions and returning a number of inversions along with the sorted array. \\
+ merge(array a, array b) { \\
+la = length a, lb = length b \\
+sortedarr = [] \\
+initialize x, y, counter \\
+while x $<$ la AND y $<$ lb { \\
+	\quad nextmin = minimum of a[x], b[y] \\
+	\quad add to sortedarr (nextmin) \\
+	\quad if b[y]==nextmin: \\
+		$\> \>$counter += la - x \\
+		$\> \>$y+=1 \\
+	$\>$else: \\
+	$\> \>$	x+=1 \\
+}\\
+return (sortedarr, counter) \\
+} \\
+\\
+sort(A): \\
+if length(A) == 1 \\
+	return 0 \\
+	\\
+L = A[0 to n/2] \\
+R = A[n/2 + 1 to n] \\
+\\
+(sortedL, counterL) = sort(L) \\
+(sortedR, counterR) = sort(R) \\
+(combinedA, crosscounter) = merge(sortedL, sortedR) \\
+return (combinedA, counterL+counterR+crosscounter)  \\
+\\ 
+\\
+Another solution for Q3. \\
+Inversions(A):\\
+n=A.length\\
+i=0\\
+L=A[1...n/2]\\
+R=A[n/2 + 1 ... n]\\
+i+=Inversions(L)\tab T(n/2) \\
+i+=Inversions(R)\tab T(n/2) \\
+Mergesort(L) \tab //O(nlogn)\\
+Mergesort(R) \tab //O(nlogn)\\
+return i+ModifiedMerge(L,R) \tab //O(n) \\
+\\
+ModifiedMerge(A,B):\\
+n=A.length=B.length\\
+A[n+1]=B[n+1]=$\infty$\\
+count=i=j=0\\
+while A[i] $< \infty$ or B[j] $ < \infty$:\\
+\tab	 if A[i]$\leq$B[j]:\\
+\tab \tab	count+=1\\
+\tab \tab	i+=1\\
+\tab else:\\
+\tab \tab 	j+=1\\
+return count \\
+\\
+So we get the recurrence T(n)$\leq$2T(n/2)+O(2nlogn + n)=2T(n/2)+O(nlogn+n) with T(1)$\leq$ c for some c \\
+Proof by induction that T(n)=nlogn:\\
+For the case n=1, it's clearly true by picking the correct c value.\\
+Assume it's true from k=1 to k=n-1. In particular, it's true for $T(n/2)$. \\
+So we get T(n)$\leq 2 \frac{n}{2}log_{2}{\frac{n}{2}} + n+nlog_{2}n$ \\
+$= n(log_{2}n -1)+n+nlog_{2}n = nlog_{2}n-n+n+nlog_{2}n=2nlog_{2}n$\\
+Thus we get $T(n)\leq 2nlog_{2}n$, which is what we were looking for. \\Thus T(n) $\in  O ( nlog_{2}n )$\\
+Q4. Part 1. Pseudocode for algorithm, using Partition function from Quicksort algorithm discussed in class:\\
+findkth(array A, k){\\
+ \tab  i = partition(A) \\
+ \tab  if i==k: \\
+   		\tab \tab return A[k]\\
+  \tab 	else if i$<$k\\
+   	\tab \tab	return findkth( A[i+1 to length(A), k-i+1 ) \\
+   \tab	else if i$>$k\\
+   	\tab \tab	return findkth(A[0 to i], k)\\
+   		}\\ 
+   		\\
+	Part 2. Worst Case: \\
+	= (n-1)+(n-2)+...+2+1 \\
+	= $\sum_{i=1}^{n} (n-i)$ \\
+	= ((n-1)$(\dfrac{n}{2})$) \\
+	= $(\dfrac{n^{2}-n}{2})$
+	= $\Theta(n^{2})$ \\
+	\\
+	Part 3. for each recursion, each element has a $\dfrac{1}{n}$ probability of being selected as the pivot where n is the size. We can guess that T(n) = O(nlogn) so T(n) $\leq$ cnlogn as n$\rightarrow\infty$. Base case is T(1) = 0, trivially sorted.\\
+	T(n) = (n-1) + $\sum_{i=1}^{n-1} \dfrac{1}{n}(T(oneside^{i})) $ \\
+	Worst Case T(n) $\leq (n-1) + \sum_{i=1}^{n} \dfrac{1}{n}(T(i))$ \\
+	= (n-1) + $\dfrac{1}{n}$ $\sum_{i=1}^{n-1}cilog(i)dn$\\
+	= (n-1) + $\dfrac{1}{n} \int_{i=1}^{n} cilog(i)dn $ \\
+	$\leq (n-1) + \dfrac{c}{n}(\dfrac{n^{2}logn}{2}-\dfrac{n^{2}}{4}+\dfrac{1}{4})$ \\    *xlogx where x$\geq$1 is concave down so we know this inequality holds, and we integrate by parts* \\
+	= $(n-1) + \dfrac{c}{2}nlogn - \dfrac{cn}{4} + \dfrac{c}{4n}$ \\
+	If we let c=3, the weaker terms are quickly approaching 0 or are negative. Therefore T(n) = O(nlogn) 
+	\\
+	\\
+	Q5. Pseudocode: \\
+	findkth(A, k) { \\
+	\tab (d, j) = partition(A) \\ (tuple of number of duplicates and the first index for duplicates) \\
+	\tab if K$\in$[j, j+d]: \\
+	\tab \tab return A[j] \\
+	\tab if k$<$j: \\
+	\tab \tab return findkth(A[1 ... j-1], k) \\
+	\tab if k$>$ j+length(B): \\
+	\tab \tab return findkth(A[j+d + 1...n], k-j+d) \\
+	\\
+	\\
+	The partition function is different: \\
+	Partition(A): \\
+	n=A.length \\
+	piv = A[i] \\
+	i=1, j=n+1, k=1 \\
+	while true: \\
+	\tab do i++ while A[i] $<$ piv \\
+	\tab do j- - while A[j] $>$ piv \\
+	\tab if i$\geq$j: break \\
+	\tab if A[i] = piv: \\
+	\tab \tab swap A[i] and A[k+1], k+=1 \\
+	\tab if A[j] = piv: \\
+	\tab \tab swap A[i] and A[j]\\
+	\tab \tab i-=1 and j+=1 \\
+	\tab if A[i] != piv and A[j] != piv: \\
+	\tab \tab swap A[i] and A[j] \\
+	for t=1 to k: \\
+	\tab swap A[t] and A[j-t+1] \\
+	return(k, j)\\
+	}\\
+	Its necessary for all elements to be distinct because if a duplicate is picked as the pivot, there wouldn't be a single partition index, but multiple. You'd have to keep track of where to put the duplicate which screws things up. The algorithm above basically says that if there is duplicates of the pivots, it keeps track of how many there are, and takes that into account when recursively calling findkth. It takes a lot more work to do this, and the worst case is the same as in Q4. The only difference here is if there are duplicates, you have to do more work to keep track of that. It takes ~2-3 times more operations for this, which is O(1) times more, so it still ends up being worst case $\O(n^2)$, but average case is still $O(nlog(n))$.
+\end{document}

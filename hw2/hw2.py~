@@ -1,0 +1,55 @@
+import numpy as np
+###################################################
+def selectionsort(A):
+	n=A.size
+	i=0
+	for i in range(n):
+		minindex=i
+		for j in range(i+1,n):
+			if A[j]<A[minindex]:
+				minindex=j
+		temp = A[i]
+		A[i]=A[minindex]
+		A[minindex]=temp
+	return A
+###################################################
+def insertionsort(A):
+	n=A.size
+	for i in range(1,n):
+		j=i
+		while j>=1:
+			if A[j-1]>A[j]:
+				temp=A[j-1]
+				A[j-1]=A[j]
+				A[j]=temp
+			j=j-1 
+	return A
+###################################################
+def mergesort(A):
+	n=A.size
+	if n==1:
+		return A
+	L=np.array_split(A,2)[0]
+	R=np.array_split(A,2)[1]
+	Lsort=mergesort(L)
+	Rsort=mergesort(R)
+	return merge(Lsort, Rsort)
+
+def merge(Lsort, Rsort):
+	Arr=[]
+	i=0
+	j=0
+	Lsort=np.append(Lsort,1000000000)
+	Rsort=np.append(Rsort,1000000000)
+	a=Lsort.size
+	b=Rsort.size
+	while i<a-1 or j<b-1:
+		if Lsort[i]>Rsort[j]:
+			Arr.append(Rsort[j])
+			j+=1
+		elif Lsort[i]<=Rsort[j]:
+			Arr.append(Lsort[i])
+			i+=1
+	return np.array(Arr)
+###################################################
+print(mergesort(np.array([1,2,5,9,3])))

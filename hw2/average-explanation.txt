@@ -1,0 +1,15 @@
+Nicole Kyriakopoulos
+Jacob Katzeff
+4/20/16
+Average-explanation.txt
+Hw 2 Problem 4. 
+
+blue = mergesort 
+green = insertionsort
+red = selectionsort 
+
+Mergesort has the fastest average runtime on a randomized array. It is still theta nlogn and still beats the other two 
+sorting algorithms by a long shot, speed-wise. Insertion sort has a big difference between its
+best and worst case run time as we have seen from the previous graphs, but the average case still has a theta n^2 
+running time so it is the slowest with random inputs. Selection sort has the same run time for best and worst case 
+so it also increases similarly to insertionsort, with theta n^2. 

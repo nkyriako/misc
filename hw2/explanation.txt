@@ -1,0 +1,39 @@
+Nicole Kyriakopoulos
+Jacob Katzeff
+4/20/16
+Explanation-- Question 3
+
+selection.pdf-
+sorted=blue
+unsorted=green
+	The two graphs are pretty similar, which is 
+	accurate for this particular algorithm. Selection sort works by going through the array and finding the smallest 
+	value and bringing it to the front, and does that for the entire remaining unaccounted list, so no matter what 
+	the array looks like, the best case and the worst case take about the same amount of time. 
+	
+merge.pdf-
+sorted=blue
+unsorted=green
+	The lines on this graph are bumpy but the sorted and reverse sorted inputs seem to take about the same time overall. 
+	Notice that these are both much faster than the selection sort runtimes, and have a best and worst case of theta(nlogn). 
+
+insertion.pdf-
+sorted=blue
+unsorted=green
+	This algorithm seems to be extremely affected by the input order. The already sorted input takes almost no time at all,
+	(runtime is theta(n) ), but the reverse is slow and it gets increasingly slower as the input size increases.
+	
+all-sorted.pdf-
+selection=blue
+insertion=green
+merge=red
+	Mergesort, with theta (nlogn) time no matter what, is predictably dependably fast, but Insertion sort is so fast on an
+	already sorted array that it again cannot even be seen in the graph. 
+
+	
+all-unsorted.pdf-
+selection=green 
+insertion=blue 
+merge=red
+	Mergesort is the fastest, with same general running time as on the previous pdf. This is the worst case, so both others are 
+	n^2, but it seems like insertion is still faster because it makes n(n-1)/2 comparisons instead of n(n+1)/2 comparisons. 

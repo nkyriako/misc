@@ -1,0 +1,24 @@
+asymptotic: 
+Key not found in bad reviews. Successor: asyouneed with frequncy 1
+Key not found in good reviews. Successor: at2020 with frequency 3
+binary: 
+Key not found in bad reviews. Successor: binbr with frequncy 13
+Key not found in good reviews. Successor: binaturae with frequency 1
+complexity: 
+Bad review frequency: 83
+Good review frequncy: 196
+depth: 
+Bad review frequency: 183
+Good review frequncy: 492
+mergesort: 
+Key not found in bad reviews. Successor: merging with frequncy 1
+Key not found in good reviews. Successor: merging with frequency 5
+quicksort: 
+Key not found in bad reviews. Successor: quickstop with frequncy 6
+Key not found in good reviews. Successor: quickstop with frequency 2
+structure: 
+Bad review frequency: 27
+Good review frequncy: 74
+theta: 
+Key not found in bad reviews. Successor: thevey with frequncy 1
+Key not found in good reviews. Successor: thethought with frequency 1

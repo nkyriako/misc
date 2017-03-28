@@ -1,0 +1,5 @@
+On an array of size 10^6:
+
+Mergesort: 73.449 seconds
+Insertion Sort: More than an hour
+Selection Sort: More than an hour
